@@ -51,8 +51,13 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public User createUser(@Valid @RequestBody User user) {
-		return userRepository.save(user);
+	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+		Optional<User> existingUser = userRepository.findById(user.getEmail());
+		if (existingUser.isPresent()) {
+			return ResponseEntity.badRequest().body(existingUser.get());
+		} else {
+			return ResponseEntity.ok(userRepository.save(user));			
+		}
 	}
 	
 	@PutMapping("/{id}")

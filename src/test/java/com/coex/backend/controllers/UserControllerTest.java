@@ -53,7 +53,7 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(newUser)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(savedUser.getId()))
+                //.andExpect(jsonPath("$.id").value(savedUser.getId()))
                 .andExpect(jsonPath("$.accessLevel").value(savedUser.getAccessLevel()))
                 .andExpect(jsonPath("$.email").value(savedUser.getEmail()))
                 .andExpect(jsonPath("$.isVerified").value(savedUser.getIsVerified()))
@@ -81,7 +81,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 
-                .andExpect(jsonPath("$[0].id").value(user1.getId()))
+                //.andExpect(jsonPath("$[0].id").value(user1.getId()))
                 .andExpect(jsonPath("$[0].accessLevel").value(user1.getAccessLevel()))
                 .andExpect(jsonPath("$[0].email").value(user1.getEmail()))
                 .andExpect(jsonPath("$[0].isVerified").value(user1.getIsVerified()))
@@ -89,7 +89,7 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$[0].firstName").value(user1.getFirstName()))
                 .andExpect(jsonPath("$[0].lastName").value(user1.getLastName()))
                 
-		        .andExpect(jsonPath("$[1].id").value(user2.getId()))
+		        //.andExpect(jsonPath("$[1].id").value(user2.getId()))
 		        .andExpect(jsonPath("$[1].accessLevel").value(user2.getAccessLevel()))
 		        .andExpect(jsonPath("$[1].email").value(user2.getEmail()))
 		        .andExpect(jsonPath("$[1].isVerified").value(user2.getIsVerified()))
@@ -101,10 +101,10 @@ public class UserControllerTest {
     @Test
     public void getUserById_found() throws Exception {
         User user = new User("USER", "test1@test.com","false","test_password1","Test1","User1");
-        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-        mockMvc.perform(get("/api/users/{id}", user.getId()))
+        when(userRepository.findById(user.getEmail())).thenReturn(Optional.of(user));
+        mockMvc.perform(get("/api/users/{email}", user.getEmail()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(user.getId()))
+                //.andExpect(jsonPath("$.id").value(user.getId()))
                 .andExpect(jsonPath("$.accessLevel").value(user.getAccessLevel()))
                 .andExpect(jsonPath("$.email").value(user.getEmail()))
                 .andExpect(jsonPath("$.isVerified").value(user.getIsVerified()))

@@ -51,11 +51,10 @@ Status: 200 OK
 {
     "content": [
         {
-            "id": "054a9652-91b2-4ee6-8b45-d7e98b59dad6",
+            "email": "", // Unique identifier
             "createdAt": "",
             "updatedAt": "",
             "accessLevel": "",
-            "email": "",
             "isVerified": "",
             "password": "",
             "firstName": "",
@@ -92,16 +91,15 @@ Status: 200 OK
 
 #### **GET**: /api/users/{id}
 - **Sample Request**:
-```http://<IP>:<PORT>/api/users/054a9652-91b2-4ee6-8b45-d7e98b59dad6```
+```http://<IP>:<PORT>/api/users/<sample>@<domain_name>.<top_level_domain>```
 - **Response Format**:
 ```
 Status: 200 OK
 {
-    "id": "054a9652-91b2-4ee6-8b45-d7e98b59dad6",
+    "email": "", // Unique identifier
     "createdAt": "",
     "updatedAt": "",
     "accessLevel": "",
-    "email": "",
     "isVerified": "",
     "password": "",
     "firstName": "",
@@ -126,11 +124,10 @@ body:
 ```
 Status: 200 OK
 {
-    "id": "054a9652-91b2-4ee6-8b45-d7e98b59dad6",
+    "email": "", // Unique identifier
     "createdAt": "",
     "updatedAt": "",
     "accessLevel": "",
-    "email": "",
     "isVerified": "",
     "password": "",
     "firstName": "",
@@ -141,12 +138,12 @@ Status: 200 OK
 ####  **PUT**: /api/users/{id}
 - **Sample Request**:
 ```
-http://<IP>:<PORT>/api/users/054a9652-91b2-4ee6-8b45-d7e98b59dad6
+http://<IP>:<PORT>/api/users/<sample>@<domain_name>.<top_level_domain>
 
 body:
 {
-    "accessLevel": "USER", // editable with USER|MODERATOR|ADMIN
     "email": "crab@pants.com", // editable
+    "accessLevel": "USER", // editable with USER|MODERATOR|ADMIN
     "isVerified": "false", // editable with true|false
     "password": "crabbypassword", // editable
     "firstName": "Crab", // editable
@@ -157,11 +154,10 @@ body:
 ```
 Status: 200 OK
 {
-    "id": "054a9652-91b2-4ee6-8b45-d7e98b59dad6",
+    "email": "", // Unique identifier
     "createdAt": "",
     "updatedAt": "",
     "accessLevel": "",
-    "email": "",
     "isVerified": "",
     "password": "",
     "firstName": "",
@@ -171,7 +167,7 @@ Status: 200 OK
 
 #### **DELETE**: /api/users/{id}
 - **Sample Request**:
-```http://<IP>:<PORT>/api/users/054a9652-91b2-4ee6-8b45-d7e98b59dad6```
+```http://<IP>:<PORT>/api/users/<sample>@<domain_name>.<top_level_domain>```
 - **Response Format**:
 ```
 Status: 200 OK
