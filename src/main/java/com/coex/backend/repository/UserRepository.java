@@ -1,12 +1,13 @@
 package com.coex.backend.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
 import com.coex.backend.model.User;
 
-
-
 @Repository
-public interface UserRepository extends CrudRepository<User, String> {
+public interface UserRepository extends ElasticsearchRepository<User, String> {
+	List<User> findByEmail(String email);
 }

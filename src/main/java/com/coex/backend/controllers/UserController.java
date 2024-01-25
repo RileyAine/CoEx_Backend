@@ -1,6 +1,7 @@
 package com.coex.backend.controllers;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -27,14 +28,25 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/users")
 @Validated
 public class UserController {
+	@Autowired
 	private static final Logger LOGGER = LogManager.getLogger(BackendApplication.class);
     
+	//@Autowired
+	//private elasticsearchOperations elasticsearchOperations;
+	
 	@Autowired
 	private UserRepository userRepository;
 	
+	//@Autowired
+	//RestClient restClient;  
+	
+	//public UserController(ElasticsearchOperations elasticsearchOperations) { 
+	//	this.elasticsearchOperations = elasticsearchOperations;
+	//}
+	
 	@GetMapping
-	public Iterable<User> getAllUsers() {
-		return userRepository.findAll();
+	public ResponseEntity<Iterable<User>> getAllUsers() {
+		return ResponseEntity.ok(userRepository.findAll());	
 	}
 	
 	@GetMapping("/{id}")
@@ -52,11 +64,14 @@ public class UserController {
 	
 	@PostMapping
 	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-		Optional<User> existingUser = userRepository.findById(user.getEmail());
-		if (existingUser.isPresent()) {
-			return ResponseEntity.badRequest().body(existingUser.get());
-		} else {
+		List<User> existingUsersList = userRepository.findByEmail(user.getEmail());
+		if (existingUsersList.isEmpty()) {
 			return ResponseEntity.ok(userRepository.save(user));			
+		} else {
+			LOGGER.info("CreateUser found duplicate: <request>, <list found>:");
+			LOGGER.info(user);
+			LOGGER.info(existingUsersList);
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	

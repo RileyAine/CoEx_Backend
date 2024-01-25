@@ -13,7 +13,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.Date;
-// import java.util.UUID;
+import java.util.UUID;
 
 @Document(indexName="users")
 public class User {
@@ -22,12 +22,11 @@ public class User {
 		USER,MODERATOR,ADMIN
 	}
 
-//	@Id
-//	@Field(type = FieldType.Keyword)
-//	@org.hibernate.validator.constraints.UUID(message = "Field id is not a valid UUID.")
-//	private String id;
-	
 	@Id
+	@Field(type = FieldType.Keyword)
+	@org.hibernate.validator.constraints.UUID(message = "Field id is not a valid UUID.")
+	private String id;
+	
 	@Field(type = FieldType.Text, name = "email")
 	@NotBlank(message = "Field email cannot be blank.")
 	@Email(message = "Field email is not well formed.")
@@ -73,7 +72,7 @@ public class User {
 	
 	
 	public User() {
-		// this.setId(UUID.randomUUID().toString());
+		this.setId(UUID.randomUUID().toString());
 		this.setAccessLevel(AccessLevel.USER.toString());
 		this.setCreatedAt(new Date());
 		this.setUpdatedAt(new Date());
@@ -87,7 +86,7 @@ public class User {
 			@NotBlank(message = "Field firstName cannot be blank.") @Pattern(regexp = "^[A-Za-z\\x{00C0}-\\x{00FF}][A-Za-z\\x{00C0}-\\x{00FF}\\'\\-]+([\\ A-Za-z\\x{00C0}-\\x{00FF}][A-Za-z\\x{00C0}-\\x{00FF}\\'\\-]+)*", message = "Field firstName contains invalid character(s).") @Size(min = 2, max = 20, message = "Field firstName must be more than 2 and less than 20 characters.") String firstName,
 			@NotBlank(message = "Field lastName cannot be blank.") @Pattern(regexp = "^[A-Za-z\\x{00C0}-\\x{00FF}][A-Za-z\\x{00C0}-\\x{00FF}\\'\\-]+([\\ A-Za-z\\x{00C0}-\\x{00FF}][A-Za-z\\x{00C0}-\\x{00FF}\\'\\-]+)*", message = "Field lastName contains invalid character(s).") @Size(min = 2, max = 20, message = "Field lastName must be more than 2 and less than 20 characters.") String lastName) {
 		super();
-		//this.id = UUID.randomUUID().toString();
+		this.id = UUID.randomUUID().toString();
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
 		this.accessLevel = accessLevel;
@@ -98,13 +97,13 @@ public class User {
 		this.lastName = lastName;
 	}
 
-//	public String getId() {
-//		return id;
-//	}
-//
-//	public void setId(String id) {
-//		this.id = id;
-//	}
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	public Date getCreatedAt() {
 		return createdAt;
@@ -173,11 +172,12 @@ public class User {
 	@Override
 	public String toString() {
 		return "User "
-				+ "[email=" + email 
+				+ "[id=" + id
+				+ "email=" + email 
 				+ ", createdAt=" + createdAt 
 				+ ", updatedAt=" + updatedAt 
 				+ ", accessLevel=" + accessLevel 
-				+ ",  isVerified=" + isVerified 
+				+ ", isVerified=" + isVerified 
 				+ ", password=" + password
 				+ ", firstName=" + firstName 
 				+ ", lastName=" + lastName + "]";

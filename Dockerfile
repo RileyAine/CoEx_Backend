@@ -3,7 +3,7 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /opt/app
 
-ARG JAR_FILE=target/backend-1.0.2-SNAPSHOT.jar
+ARG JAR_FILE=target/CoEx_Backend-v1.0.4-SNAPSHOT.jar
 
 # cp backend-1.0.0-SNAPSHOT.jar /opt/app/app.jar
 COPY ${JAR_FILE} app.jar
