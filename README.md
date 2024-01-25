@@ -51,6 +51,7 @@ Status: 200 OK
 {
     "content": [
         {
+            "id": "", // Unique identifier
             "email": "", // Unique identifier
             "createdAt": "",
             "updatedAt": "",
@@ -89,13 +90,14 @@ Status: 200 OK
 }
 ```
 
-#### **GET**: /api/users/{id}
+#### **GET**: /api/users/{idOrEmail}
 - **Sample Request**:
-```http://<IP>:<PORT>/api/users/<sample>@<domain_name>.<top_level_domain>```
+```http://<IP>:<PORT>/api/users/df10c053-09fc-4a16-9200-76730e4a1e37 || sample@email.com```
 - **Response Format**:
 ```
 Status: 200 OK
 {
+    "id": "", // Unique identifier
     "email": "", // Unique identifier
     "createdAt": "",
     "updatedAt": "",
@@ -114,7 +116,7 @@ http://<IP>:<PORT>/api/users/
 
 body:
 {
-    "email":"<sample>@<domain_name>.<top_level_domain>",
+    "email":"sample@email.com",
     "firstName": "first",
     "lastName": "last",
     "password": "pass"
@@ -124,6 +126,7 @@ body:
 ```
 Status: 200 OK
 {
+    "id": "", // Unique identifier
     "email": "", // Unique identifier
     "createdAt": "",
     "updatedAt": "",
@@ -138,7 +141,7 @@ Status: 200 OK
 ####  **PUT**: /api/users/{id}
 - **Sample Request**:
 ```
-http://<IP>:<PORT>/api/users/<sample>@<domain_name>.<top_level_domain>
+http://<IP>:<PORT>/api/users/df10c053-09fc-4a16-9200-76730e4a1e37
 
 body:
 {
@@ -154,6 +157,7 @@ body:
 ```
 Status: 200 OK
 {
+    "id": "", // Unique identifier
     "email": "", // Unique identifier
     "createdAt": "",
     "updatedAt": "",

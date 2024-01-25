@@ -49,28 +49,28 @@ public class UserController {
 		return ResponseEntity.ok(userRepository.findAll());	
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable String id) {
-	    Optional<User> userOptional = userRepository.findById(id);
+	@GetMapping("/{idOrEmail}")
+	public ResponseEntity<User> getUserById(@PathVariable String idOrEmail) {
+	    Optional<User> userOptional = userRepository.existsById(idOrEmail) ? userRepository.findById(idOrEmail) : userRepository.findByEmail(idOrEmail);
 	    if (userOptional.isPresent()) {
 	        return ResponseEntity.ok(userOptional.get());
 	    } else {
 			ResponseEntity<User> responseEntity = ResponseEntity.notFound().build();
 			LOGGER.info(responseEntity);
-			LOGGER.info(id);
+			LOGGER.info(idOrEmail);
 	        return responseEntity;
 	    }
 	}
 	
 	@PostMapping
 	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-		List<User> existingUsersList = userRepository.findByEmail(user.getEmail());
-		if (existingUsersList.isEmpty()) {
+		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+		if (existingUser.isEmpty()) {
 			return ResponseEntity.ok(userRepository.save(user));			
 		} else {
 			LOGGER.info("CreateUser found duplicate: <request>, <list found>:");
 			LOGGER.info(user);
-			LOGGER.info(existingUsersList);
+			LOGGER.info(existingUser);
 			return ResponseEntity.badRequest().build();
 		}
 	}

@@ -14,7 +14,7 @@ if ($confirmation -eq 'y') {
 echo "Building production front end jar"
 
 mvn clean package -DskipTests
-java -jar target/CoEx_Backend-$($args[0])-SNAPSHOT.jar
+# java -jar target/CoEx_Backend-$($args[0])-SNAPSHOT.jar
 
 echo "Checking docker process"
 $processes = Get-Process "*docker desktop*"
